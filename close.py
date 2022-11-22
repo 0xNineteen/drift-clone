@@ -25,6 +25,9 @@ from helpers import *
 from driftpy.constants.numeric_constants import AMM_RESERVE_PRECISION
 from solana.rpc import commitment
 import pprint
+from driftpy.clearing_house import is_available
+from termcolor import colored
+import pprint
 
 async def view_logs(
     sig: str,
@@ -140,10 +143,6 @@ async def clone_close():
             market.amm.historical_oracle_data.last_oracle_price
         )
 
-    from driftpy.clearing_house import is_available
-    from termcolor import colored
-    import pprint
-
     for perp_market_idx in range(n_markets):
         success = False
         attempt = -1
@@ -166,7 +165,6 @@ async def clone_close():
                     if position is None or is_available(position):
                         i += 1
                         continue
-
                     routines.append(ch.settle_pnl(ch.authority, perp_market_idx, sid))
 
             for routine in routines:
