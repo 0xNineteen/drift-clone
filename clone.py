@@ -13,6 +13,9 @@ sys.path.append('driftpy/src/')
 import driftpy
 print(driftpy.__path__)
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from driftpy.types import User
 from driftpy.constants.config import configs
 from anchorpy import Provider
@@ -32,7 +35,6 @@ from subprocess import Popen
 import os 
 import time
 import signal
-import yaml
 
 accounts_dir = pathlib.Path('accounts/')
 keypairs_dir = pathlib.Path('keypairs/')
@@ -171,8 +173,7 @@ def setup_validator_script(
 
 async def scrape():
     config = configs['mainnet']
-    with open('env.yaml', 'r') as f:
-        key = yaml.safe_load(f)['key']
+    key = os.getenv("API_KEY")
     url = f'https://drift-cranking.rpcpool.com/{key}'
     
     state_kp = Keypair() ## new admin kp
@@ -374,7 +375,7 @@ async def scrape():
     )
 
     print('setting up validator scripts...')
-    validator_path = './solana/target/debug/solana-test-validator'
+    validator_path = 'solana-test-validator'
     script_file = 'start_local.sh'
     setup_validator_script(
         ch,

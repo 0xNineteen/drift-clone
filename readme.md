@@ -2,13 +2,15 @@
 - python >= 3.9
     - conda create -n tmp python=3.10
 - pip install -r req.txt
+- need solana-cli v1.14.7 or greater for --account-dir flag to work
+    - solana-test-validator --account-dir
 - bash setup.sh:
     - inits other submodules
-    - builds v2 & solana -- cli solana-test-validator doesnt have `--accounts-dir` flag yet so we need to clone full solana repo (grab some tea lol) ... 
+    - builds v2
     
 ## main files
-- `python clone.py`: clones mainnet to local
-- `close.py`: settles markets and all of the users positions
+- `clone.py`: clones mainnet accounts to disk (is later loaded into a local validator)
+- `close.py`: closes all of the users positions
 - `invariants.py`: assert invariants hold true (eg, market.net_baa = sum(user.baa))
 
 ## random notes

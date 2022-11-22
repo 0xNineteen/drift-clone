@@ -1,6 +1,9 @@
-anchorpy
+anchorpy==0.10.0
 solana
 tqdm 
 pandas 
 ipywidgets
 jupyter
+asyncio
+python-dotenv
+termcolor
